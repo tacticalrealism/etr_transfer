@@ -1,0 +1,1 @@
+#include "\z\etr_transfer\addons\transfer\script_component.hpp"
