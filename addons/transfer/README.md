@@ -1,7 +1,7 @@
 etr_transfer_transfer
 ===================
 
-Adds the Transfer feature.
+Adds the Transfer feature, and it's UI.
 
 
 ## Maintainers

@@ -11,7 +11,6 @@
  * Public: No
  */
 
-
 GVAR(shiftState) = nil;
 GVAR(ctrlState) = nil;
 GVAR(primaryLoad) = nil;
