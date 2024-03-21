@@ -28,11 +28,11 @@ private _items = createHashMap;
 
 // Iterate over all items inside inventory.
 {
-	private _data = _items getOrDefault [_x, [_x, 0], true];
-	_data params ["_item", "_amount"];
-	// Add one for this item.
-	_amount = _amount + 1;
-	_items set [_x, [_item, _amount]];
+    private _data = _items getOrDefault [_x, [_x, 0], true];
+    _data params ["_item", "_amount"];
+    // Add one for this item.
+    _amount = _amount + 1;
+    _items set [_x, [_item, _amount]];
 } forEach itemCargo _inventory;
 
 // Add items hashmap to cargo array.
@@ -44,11 +44,11 @@ private _magazines = createHashMap;
 
 // Iterate over all magazines inside inventory.
 {
-	private _data = _magazines getOrDefault [str _x, [_x, 0], true];
-	_data params ["_magazine", "_amount"];
-	// Add one for this item.
-	_amount = _amount + 1;
-	_magazines set [str _x, [_magazine, _amount]];
+    private _data = _magazines getOrDefault [str _x, [_x, 0], true];
+    _data params ["_magazine", "_amount"];
+    // Add one for this item.
+    _amount = _amount + 1;
+    _magazines set [str _x, [_magazine, _amount]];
 } forEach magazinesAmmoCargo _inventory;
 
 // Add magazines hashmap to cargo array.
@@ -60,11 +60,11 @@ private _weapons = createHashMap;
 
 // Iterate over all weapons inside inventory.
 {
-	private _data = _weapons getOrDefault [str _x, [_x, 0], true];
-	_data params ["_weapon", "_amount"];
-	// Add one for this item.
-	_amount = _amount + 1;
-	_weapons set [str _x, [_weapon, _amount]];
+    private _data = _weapons getOrDefault [str _x, [_x, 0], true];
+    _data params ["_weapon", "_amount"];
+    // Add one for this item.
+    _amount = _amount + 1;
+    _weapons set [str _x, [_weapon, _amount]];
 } forEach weaponsItemsCargo _inventory;
 
 // Add weapons hashmap to cargo array.

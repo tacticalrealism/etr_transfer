@@ -1,7 +1,7 @@
 // FUNCTION PREPS
 PREP(addCargo);
 PREP(addChildActions);
-PREP(calculateTransfer);
+PREP(calculateTransferMass);
 PREP(canInteractWith);
 PREP(changeVirtualCargo);
 PREP(clearVars);

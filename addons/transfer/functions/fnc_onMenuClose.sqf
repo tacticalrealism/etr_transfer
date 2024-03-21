@@ -16,62 +16,72 @@
 params ["_display", ["_exitCode", 2]];
 
 switch (_exitCode) do {
-	case 1: {
-		// Transfer
+    case 1: {
+        // Transfer
 
-		[] spawn {
-			uisleep .1;
+        [] spawn {
+            uisleep .1;
 
-			TRACE_2("ent",GVAR(primaryCargo),GVAR(primaryVirtualCargo));
+            TRACE_2("ent",GVAR(primaryCargo),GVAR(primaryVirtualCargo));
 
-			// Get differences.
-			private _primaryDiff = [GVAR(primaryCargo), GVAR(primaryVirtualCargo)] call FUNC(getDifferences);
-			private _secondaryDiff = [GVAR(secondaryCargo), GVAR(secondaryVirtualCargo)] call FUNC(getDifferences);
+            // Get differences.
+            private _primaryDiff = [GVAR(primaryCargo), GVAR(primaryVirtualCargo)] call FUNC(getDifferences);
+            private _secondaryDiff = [GVAR(secondaryCargo), GVAR(secondaryVirtualCargo)] call FUNC(getDifferences);
 
-			// Calculations will be made from primary's perspective.
-			private _transferData = _primaryDiff call FUNC(calculateTransfer);
+            // Calculations will be made from primary's perspective.
+            private _transferMass = _primaryDiff call FUNC(calculateTransferMass);
 
-			_transferData params ["_time", "_mass"];
-			TRACE_3("Transfer data",_time,_mass,(_mass/25));
+            TRACE_1("Transfer mass",_transferMass);
 
-			// Only take 2/3 of mass calculation for time.
-			[((_mass*(1/2.2046))/10)*(2/3), [_primaryDiff, _secondaryDiff, _mass], {
-				params ["_args"];
-				_args params ["_primaryDiff", "_secondaryDiff"];
+            // *(1/2.2046) is conversion from Arma mass to kg.
+            [((_transferMass*(1/2.2046))/10)*GVAR(timeFactor), [_primaryDiff, _secondaryDiff, _transferMass], {
+                params ["_args"];
+                _args params ["_primaryDiff", "_secondaryDiff"];
 
-				[GVAR(primaryInteraction), _primaryDiff] call FUNC(addCargo);
-				[GVAR(secondaryInteraction), _secondaryDiff] call FUNC(addCargo);
+                [GVAR(primaryInteraction), _primaryDiff] call FUNC(addCargo);
+                [GVAR(secondaryInteraction), _secondaryDiff] call FUNC(addCargo);
 
-				// Clear GVAR's
-				call FUNC(clearVars);
-			}, {
-				params ["_args", "_elapsedTime", "_totalTime"];
-				_args params ["_primaryDiff", "_secondaryDiff", "_mass"];
+                // Unlock inventories.
+                [GVAR(primaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+                [GVAR(primaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+                [GVAR(secondaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+                [GVAR(secondaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
 
-				[GVAR(primaryInteraction), _primaryDiff, _mass, _elapsedTime/_totalTime] call FUNC(transferItems);
-				[GVAR(secondaryInteraction), _secondaryDiff, _mass, _elapsedTime/_totalTime] call FUNC(transferItems);
+                // Clear GVAR's
+                call FUNC(clearVars);
+            }, {
+                params ["_args", "_elapsedTime", "_totalTime"];
+                _args params ["_primaryDiff", "_secondaryDiff", "_transferMass"];
 
-				// Clear GVAR's
-				call FUNC(clearVars);
-			}, "Transferring"] call ace_common_fnc_progressBar;
-		};
+                [GVAR(primaryInteraction), _primaryDiff, _transferMass, _elapsedTime/_totalTime] call FUNC(transferItems);
+                [GVAR(secondaryInteraction), _secondaryDiff, _transferMass, _elapsedTime/_totalTime] call FUNC(transferItems);
 
-		
+                // Unlock inventories.
+                [GVAR(primaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+                [GVAR(secondaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+                [GVAR(primaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+                [GVAR(secondaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
 
-	};
-	case 2;
-	default {
-		// Cancel
+                // Clear GVAR's
+                call FUNC(clearVars);
+            }, "Transferring"] call ace_common_fnc_progressBar;
+        };
 
-		// Unlock inventories.
-		[GVAR(primaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
-		[GVAR(secondaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
-		[GVAR(primaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
-		[GVAR(secondaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
 
-		// Clear GVAR's
-		call FUNC(clearVars);
-	};
+    };
+    case 2;
+    default {
+        // Cancel
+
+        // Unlock inventories.
+        [GVAR(primaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+        [GVAR(secondaryInteraction), "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+        [GVAR(primaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+        [GVAR(secondaryInteraction), "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
+
+        // Clear GVAR's
+        call FUNC(clearVars);
+    };
 };
 
 nil

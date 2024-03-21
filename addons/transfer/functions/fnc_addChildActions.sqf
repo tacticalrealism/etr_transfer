@@ -28,20 +28,20 @@ _objects = _objects - [_target];
 // Add children to this action
 private _actions = [];
 {
-	// Filter if object has an inventory
-	if !([_player, _x] call FUNC(canInteractWith)) then {continue};
+    // Filter if object has an inventory
+    if !([_player, _x] call FUNC(canInteractWith)) then {continue};
 
-	private _distance = [_x distance _target, 0, 1] call CBA_fnc_formatNumber;   
+    private _distance = [_x distance _target, 0, 1] call CBA_fnc_formatNumber;   
 
-	private _childStatement = {
-		params ["_target", "", "_childTarget"];
-		GVAR(primaryInteraction) = _target;
-		GVAR(secondaryInteraction) = _childTarget;
-		createDialog QGVAR(transferMenu);
-	};
-	private _objectName = ([_x, true] call ace_cargo_fnc_getNameItem);
-	private _action = [_objectName, format ["%1 (%2m)", _objectName, _distance], "", _childStatement, {true}, {}, _x] call ace_interact_menu_fnc_createAction;
-	_actions pushBack [_action, [], _target]; // New action, it's children, and the action's target
+    private _childStatement = {
+        params ["_target", "", "_childTarget"];
+        GVAR(primaryInteraction) = _target;
+        GVAR(secondaryInteraction) = _childTarget;
+        createDialog QGVAR(transferMenu);
+    };
+    private _objectName = ([_x, true] call ace_cargo_fnc_getNameItem);
+    private _action = [_objectName, format ["%1 (%2m)", _objectName, _distance], "", _childStatement, {true}, {}, _x] call ace_interact_menu_fnc_createAction;
+    _actions pushBack [_action, [], _target]; // New action, it's children, and the action's target
 } forEach _objects;
 
 _actions

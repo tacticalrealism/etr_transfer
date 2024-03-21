@@ -33,11 +33,11 @@ if !(_hasInventory) exitWith {};
 private _action = [QGVAR(Transfer),"Transfer Content","",
     {},
     {
-		[_player, _target, []] call FUNC(canInteractWith)
+        [_player, _target, []] call FUNC(canInteractWith)
     },
     {
-		_this call FUNC(addChildActions);
-	}, objNull
+        _this call FUNC(addChildActions);
+    }, objNull
 ] call ace_interact_menu_fnc_createAction;
 
 GVAR(initializedVehicleClasses) pushBack _type;

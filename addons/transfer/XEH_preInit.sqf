@@ -10,4 +10,12 @@ GVAR(initializedVehicleClasses) = [];
 GVAR(massCache) = createHashMap;
 GVAR(openedInventory) = objNull;
 
+[
+    QGVAR(timeFactor), "SLIDER",
+    ["Time Factor", "Factor of how long transfer takes. Higher means longer."],
+    "ETR Transfer Content",
+    [0, 2, 0.6, 1],
+    2
+] call CBA_fnc_addSetting;
+
 ADDON = true;

@@ -7,13 +7,13 @@ private _vehicleClassesAddClassEH = call (uiNamespace getVariable ["ace_cargo_ve
 } forEach _vehicleClassesAddClassEH;
 
 ACE_player addEventHandler ["InventoryOpened", {
-	params ["_unit", "_container"];
+    params ["_unit", "_container"];
     TRACE_2("Opened inventory",_unit,_container);
     GVAR(openedInventory) = _container;
 }];
 
 ACE_player addEventHandler ["InventoryClosed", {
-	params ["_unit", "_container"];
+    params ["_unit", "_container"];
     TRACE_2("Closed inventory",_unit,_container);
     GVAR(openedInventory) = objNull;
 }];

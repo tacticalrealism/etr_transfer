@@ -2,6 +2,7 @@
 /*
  * Author: JasperRab
  * Gets the mass of an item, magazine or weapon with attachments as a single entry.
+ * Using the magic of caching to ensure script time is as low as possible.
  *
  * Arguments:
  * 0: Type <STRING>
@@ -43,7 +44,8 @@ private _getMass = {
 			_mass = _mass + (["item", _bipod] call FUNC(getMass)); // getNumber (configFile >> "CfgWeapons" >> _bipod >> "ItemInfo" >> "mass")
 		};
 	};
-	// Return
+	
+	// return
 	_mass
 };
 

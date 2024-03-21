@@ -66,11 +66,4 @@ clearWeaponCargoGlobal _inventory;
 	_inventory addWeaponWithAttachmentsCargoGlobal [_x, 1];
 } forEach _weaponsCargo;
 
-// Unlock inventories.
-[_inventory, "lockInventory", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
-[_inventory, "blockEngine", QGVAR(transfering), false] call ace_common_fnc_statusEffect_set;
-
-// Clear GVARs
-
-
 true
