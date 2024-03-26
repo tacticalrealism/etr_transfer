@@ -8,7 +8,7 @@ Mod that adds a tool that allows players to mass transfer content between invent
 
 ## Contributing
 
-To help and build the tools read this.
+To help and build this mod, read this.
 
 Due to the use of the [ACE-Framework](https://github.com/acemod/arma-project-template), or some modified variant of it, it is possible to easily build the ETR mods.
 And due to the use of the [CBA-Framework](https://github.com/CBATeam/CBA_A3) it is possible to develop when running the game, with some exceptions.
