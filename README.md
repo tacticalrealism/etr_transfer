@@ -22,6 +22,3 @@ Once this is run any components with disabled cache will recompile their functio
 
 For this to properly work you must use the `dev.bat` file of the mod, and link the mod with the use of `create Z-folder symlinks (run as admin).bat`, found in the tools folder, to the Arma 3 Root folder.
 This bat file will create a `z` folder which will house all etr-mods, these will then link to the correct files/functions automatically.
-
-For any questions about the set-up, building or modding be free to ask me on the `#developers-room` channel on discord.
-
