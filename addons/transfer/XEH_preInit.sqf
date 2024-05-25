@@ -15,7 +15,7 @@ GVAR(openedInventory) = objNull;
     ["Time Factor", "Factor of how long transfer takes. Higher means longer."],
     "ETR Transfer Content",
     [0, 2, 0.6, 1],
-    2
+    0
 ] call CBA_fnc_addSetting;
 
 ADDON = true;
